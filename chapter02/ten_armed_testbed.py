@@ -13,7 +13,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import trange
 
-matplotlib.use('Agg')
+SAVE_FIG = False
+
+if SAVE_FIG:
+    matplotlib.use('Agg')
 
 
 class Bandit:
@@ -119,8 +122,11 @@ def figure_2_1():
     plt.violinplot(dataset=np.random.randn(200, 10) + np.random.randn(10))
     plt.xlabel("Action")
     plt.ylabel("Reward distribution")
-    plt.savefig('../images/figure_2_1.png')
-    plt.close()
+    if SAVE_FIG:
+        plt.savefig('../images/figure_2_1.png')
+        plt.close()
+    else:
+        plt.show()
 
 
 def figure_2_2(runs=2000, time=1000):
@@ -144,8 +150,11 @@ def figure_2_2(runs=2000, time=1000):
     plt.ylabel('% optimal action')
     plt.legend()
 
-    plt.savefig('../images/figure_2_2.png')
-    plt.close()
+    if SAVE_FIG:
+        plt.savefig('../images/figure_2_2.png')
+        plt.close()
+    else:
+        plt.show()
 
 
 def figure_2_3(runs=2000, time=1000):
@@ -160,8 +169,11 @@ def figure_2_3(runs=2000, time=1000):
     plt.ylabel('% optimal action')
     plt.legend()
 
-    plt.savefig('../images/figure_2_3.png')
-    plt.close()
+    if SAVE_FIG:
+        plt.savefig('../images/figure_2_3.png')
+        plt.close()
+    else:
+        plt.show()
 
 
 def figure_2_4(runs=2000, time=1000):
@@ -176,8 +188,11 @@ def figure_2_4(runs=2000, time=1000):
     plt.ylabel('Average reward')
     plt.legend()
 
-    plt.savefig('../images/figure_2_4.png')
-    plt.close()
+    if SAVE_FIG:
+        plt.savefig('../images/figure_2_4.png')
+        plt.close()
+    else:
+        plt.show()
 
 
 def figure_2_5(runs=2000, time=1000):
@@ -198,8 +213,11 @@ def figure_2_5(runs=2000, time=1000):
     plt.ylabel('% Optimal action')
     plt.legend()
 
-    plt.savefig('../images/figure_2_5.png')
-    plt.close()
+    if SAVE_FIG:
+        plt.savefig('../images/figure_2_5.png')
+        plt.close()
+    else:
+        plt.show()
 
 
 def figure_2_6(runs=2000, time=1000):
@@ -209,10 +227,10 @@ def figure_2_6(runs=2000, time=1000):
                   lambda alpha: Bandit(gradient=True, step_size=alpha, gradient_baseline=True),
                   lambda coef: Bandit(epsilon=0, UCB_param=coef, sample_averages=True),
                   lambda initial: Bandit(epsilon=0, initial=initial, step_size=0.1)]
-    parameters = [np.arange(-7, -1, dtype=np.float),
-                  np.arange(-5, 2, dtype=np.float),
-                  np.arange(-4, 3, dtype=np.float),
-                  np.arange(-2, 3, dtype=np.float)]
+    parameters = [np.arange(-7, -1, dtype=np.float64),
+                  np.arange(-5, 2, dtype=np.float64),
+                  np.arange(-4, 3, dtype=np.float64),
+                  np.arange(-2, 3, dtype=np.float64)]
 
     bandits = []
     for generator, parameter in zip(generators, parameters):
@@ -231,8 +249,11 @@ def figure_2_6(runs=2000, time=1000):
     plt.ylabel('Average reward')
     plt.legend()
 
-    plt.savefig('../images/figure_2_6.png')
-    plt.close()
+    if SAVE_FIG:
+        plt.savefig('../images/figure_2_6.png')
+        plt.close()
+    else:
+        plt.show()
 
 
 if __name__ == '__main__':

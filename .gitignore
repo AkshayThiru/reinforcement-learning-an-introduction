@@ -5,3 +5,5 @@ latex
 extra
 .DS_Store
 .vscode/
+images/
+*.egg-info/
