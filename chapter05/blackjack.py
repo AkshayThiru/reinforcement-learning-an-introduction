@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from tqdm import tqdm
 
+
 # actions: hit or stand
 ACTION_HIT = 0
 ACTION_STAND = 1  #  "strike" in the book
@@ -190,6 +191,8 @@ def monte_carlo_on_policy(episodes):
         for (usable_ace, player_sum, dealer_card), _ in player_trajectory:
             player_sum -= 12
             dealer_card -= 1
+            # Each state is encountered only once in each trajectory,
+            # so there is no need to check for first-visits.
             if usable_ace:
                 states_usable_ace_count[player_sum, dealer_card] += 1
                 states_usable_ace[player_sum, dealer_card] += reward
@@ -344,9 +347,11 @@ def figure_5_3():
     runs = 100
     error_ordinary = np.zeros(episodes)
     error_weighted = np.zeros(episodes)
-    for i in tqdm(range(0, runs)):
+    # for i in tqdm(range(0, runs)):
+    for i in range(0, runs):
         ordinary_sampling_, weighted_sampling_ = monte_carlo_off_policy(episodes)
         # get the squared error
+        print(weighted_sampling_[0])
         error_ordinary += np.power(ordinary_sampling_ - true_value, 2)
         error_weighted += np.power(weighted_sampling_ - true_value, 2)
     error_ordinary /= runs
@@ -365,6 +370,6 @@ def figure_5_3():
 
 
 if __name__ == '__main__':
-    figure_5_1()
-    figure_5_2()
+    # figure_5_1()
+    # figure_5_2()
     figure_5_3()
